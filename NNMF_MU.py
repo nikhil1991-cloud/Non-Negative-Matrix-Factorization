@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pyplot as plt
 
 def NNMF_MU(A,r,epochs,initial_W=None,initial_H=None):
     '''
@@ -38,22 +37,3 @@ def NNMF_MU(A,r,epochs,initial_W=None,initial_H=None):
         frob_norm.append(np.linalg.norm(A - np.matmul(W,H)))
     return W,H,frob_norm
 
-
-
-#Lets try with a random array A of shape 6 by 4 and try to factorize into basis 3 such that W is 6 by 3 and H is 3 by 4
-m,n,r=6,4,3
-A_array = np.random.rand(m,n)
-W,H,Norm = NNMF_MU(A_array,r,1000,initial_W=None,initial_H=None)
-#Predicted value of A
-A_predicted = np.matmul(W,H)
-#Showing the difference
-Del_A = abs(A_predicted - A_array)
-plt.subplot(1,2,1)
-plt.imshow(Del_A)
-plt.colorbar()
-plt.xlabel('A - A_predicted')
-
-plt.subplot(1,2,2)
-plt.plot(np.log10(Norm))
-plt.xlabel('Iterations')
-plt.ylabel('Log10(Cost Function)')
